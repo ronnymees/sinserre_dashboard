@@ -1,0 +1,1395 @@
+[
+    {
+        "id": "52296dbb67ede9ca",
+        "type": "tab",
+        "label": "OPC client version",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "b42c53408ff8a2b4",
+        "type": "inject",
+        "z": "52296dbb67ede9ca",
+        "name": "every 2 min",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "120",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 170,
+        "y": 220,
+        "wires": [
+            [
+                "6cbcbb194cc44722",
+                "5361d4b3e290bc73"
+            ]
+        ]
+    },
+    {
+        "id": "dceca0fd7340c054",
+        "type": "mqtt out",
+        "z": "52296dbb67ede9ca",
+        "name": "",
+        "topic": "greenhouse/settings",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "31757a5912ef740b",
+        "x": 1220,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "6f75de612a2c4b8d",
+        "type": "inject",
+        "z": "52296dbb67ede9ca",
+        "name": "inject every  10 sec",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 200,
+        "y": 340,
+        "wires": [
+            [
+                "bda2df4672f73c7a"
+            ]
+        ]
+    },
+    {
+        "id": "81ead3b5149c28b2",
+        "type": "function",
+        "z": "52296dbb67ede9ca",
+        "name": "Get inside temp",
+        "func": "var msg = {payload: msg.payload}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 860,
+        "y": 340,
+        "wires": [
+            [
+                "3843bb071b4dadc9",
+                "143ae810fd7f15b1",
+                "d2fb41f71d23e63f"
+            ]
+        ]
+    },
+    {
+        "id": "d2fb41f71d23e63f",
+        "type": "ui_gauge",
+        "z": "52296dbb67ede9ca",
+        "name": "Inside temperature",
+        "group": "3204e83b013940e4",
+        "order": 1,
+        "width": "6",
+        "height": "6",
+        "gtype": "gage",
+        "title": "{{msg.label}}",
+        "label": " °C",
+        "format": "{{value}}",
+        "min": "-15",
+        "max": "45",
+        "colors": [
+            "#ff0000",
+            "#00ff00",
+            "#ff0000"
+        ],
+        "seg1": "12",
+        "seg2": "21",
+        "className": "",
+        "x": 1210,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "3843bb071b4dadc9",
+        "type": "debug",
+        "z": "52296dbb67ede9ca",
+        "name": "Inside temp",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1190,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "143ae810fd7f15b1",
+        "type": "ui_chart",
+        "z": "52296dbb67ede9ca",
+        "name": "",
+        "group": "3204e83b013940e4",
+        "order": 2,
+        "width": "16",
+        "height": "6",
+        "label": "History inside temperature",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": true,
+        "ymin": "-15",
+        "ymax": "45",
+        "removeOlder": "30",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1230,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "23ca95480f4672df",
+        "type": "inject",
+        "z": "52296dbb67ede9ca",
+        "d": true,
+        "name": "OPC-UA subscribe to outside temp",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "ns2;s=temp_omgeving",
+        "payload": "",
+        "payloadType": "date",
+        "x": 220,
+        "y": 1360,
+        "wires": [
+            [
+                "be012789b8981d36"
+            ]
+        ]
+    },
+    {
+        "id": "a0ec7530108bca63",
+        "type": "function",
+        "z": "52296dbb67ede9ca",
+        "d": true,
+        "name": "Get outside temp",
+        "func": "var msg = {payload: msg.payload}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 750,
+        "y": 1360,
+        "wires": [
+            [
+                "06c0ec9fcf2d1dab",
+                "5d2124bb60b04249",
+                "3f62d9a3dd7c15e7"
+            ]
+        ]
+    },
+    {
+        "id": "5d2124bb60b04249",
+        "type": "ui_gauge",
+        "z": "52296dbb67ede9ca",
+        "d": true,
+        "name": "Outside temperature",
+        "group": "3204e83b013940e4",
+        "order": 3,
+        "width": "4",
+        "height": "4",
+        "gtype": "gage",
+        "title": "Outside temperature",
+        "label": " °C",
+        "format": "{{value}}",
+        "min": "-20",
+        "max": "50",
+        "colors": [
+            "#ff0000",
+            "#00ff00",
+            "#ff0000"
+        ],
+        "seg1": "7",
+        "seg2": "26",
+        "className": "",
+        "x": 1120,
+        "y": 1320,
+        "wires": []
+    },
+    {
+        "id": "06c0ec9fcf2d1dab",
+        "type": "debug",
+        "z": "52296dbb67ede9ca",
+        "d": true,
+        "name": "DEBUG Outside temp",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1120,
+        "y": 1360,
+        "wires": []
+    },
+    {
+        "id": "3f62d9a3dd7c15e7",
+        "type": "ui_chart",
+        "z": "52296dbb67ede9ca",
+        "d": true,
+        "name": "",
+        "group": "3204e83b013940e4",
+        "order": 4,
+        "width": "12",
+        "height": "4",
+        "label": "History outside temperature",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": true,
+        "ymin": "-20",
+        "ymax": "40",
+        "removeOlder": "30",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1140,
+        "y": 1400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e79c0189c0c4ddcd",
+        "type": "comment",
+        "z": "52296dbb67ede9ca",
+        "name": "Push openweathermap temp to MQTT",
+        "info": "",
+        "x": 250,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "96fad5929098851b",
+        "type": "comment",
+        "z": "52296dbb67ede9ca",
+        "name": "Get PLC data from OPC-UA server for dashboard",
+        "info": "",
+        "x": 280,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "fcc00cd770eee130",
+        "type": "function",
+        "z": "52296dbb67ede9ca",
+        "name": "Get door status",
+        "func": "var status = false;\nif(msg.payload === 1) status=true;\nvar msg = {payload: status}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 860,
+        "y": 820,
+        "wires": [
+            [
+                "c53a58d4dcc8656c",
+                "df118b15db91409e"
+            ]
+        ]
+    },
+    {
+        "id": "c53a58d4dcc8656c",
+        "type": "ui_led",
+        "z": "52296dbb67ede9ca",
+        "order": 8,
+        "group": "542bd1430b7ad773",
+        "width": 2,
+        "height": 1,
+        "label": "",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "Door",
+        "x": 1170,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "df118b15db91409e",
+        "type": "ui_text",
+        "z": "52296dbb67ede9ca",
+        "group": "542bd1430b7ad773",
+        "order": 7,
+        "width": "4",
+        "height": 1,
+        "name": "",
+        "label": "Door Open/Closed",
+        "format": "",
+        "layout": "row-center",
+        "className": "",
+        "x": 1210,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "52cbd542fd1dfb46",
+        "type": "function",
+        "z": "52296dbb67ede9ca",
+        "name": "Get ventilator status",
+        "func": "var status = false;\nif(msg.payload === 1) status=true;\nvar msg = {payload: status}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 720,
+        "wires": [
+            [
+                "d862f36ed588d1b3",
+                "38a77530db1ffe69"
+            ]
+        ]
+    },
+    {
+        "id": "7d0fb35a5ce68e5b",
+        "type": "function",
+        "z": "52296dbb67ede9ca",
+        "name": "Get heater status",
+        "func": "var status = false;\nif(msg.payload === 1) status=true;\nvar msg = {payload: status}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 870,
+        "y": 620,
+        "wires": [
+            [
+                "17f29e205df359b8",
+                "b6d64d4a19439241"
+            ]
+        ]
+    },
+    {
+        "id": "d862f36ed588d1b3",
+        "type": "ui_led",
+        "z": "52296dbb67ede9ca",
+        "order": 6,
+        "group": "542bd1430b7ad773",
+        "width": 2,
+        "height": 1,
+        "label": "",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "Motor",
+        "x": 1170,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "17f29e205df359b8",
+        "type": "ui_led",
+        "z": "52296dbb67ede9ca",
+        "order": 10,
+        "group": "542bd1430b7ad773",
+        "width": 2,
+        "height": 1,
+        "label": "",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "Heater",
+        "x": 1170,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "38a77530db1ffe69",
+        "type": "ui_text",
+        "z": "52296dbb67ede9ca",
+        "group": "542bd1430b7ad773",
+        "order": 5,
+        "width": "4",
+        "height": 1,
+        "name": "",
+        "label": "Ventilator On/Off",
+        "format": "",
+        "layout": "row-center",
+        "className": "",
+        "x": 1200,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "b6d64d4a19439241",
+        "type": "ui_text",
+        "z": "52296dbb67ede9ca",
+        "group": "542bd1430b7ad773",
+        "order": 9,
+        "width": "4",
+        "height": 1,
+        "name": "",
+        "label": "Heater On/Off",
+        "format": "",
+        "layout": "row-center",
+        "className": "",
+        "x": 1200,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "2bedb41bb9bf16d7",
+        "type": "comment",
+        "z": "52296dbb67ede9ca",
+        "name": "TODO",
+        "info": "Adjust injects with correct nodeID and displayname from OPC-UA Server\nAdjust functions to get data depending on what the message from the OPC UA Client node looks like",
+        "x": 150,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "26d96fb31e1de706",
+        "type": "debug",
+        "z": "52296dbb67ede9ca",
+        "name": "OPC Inside temp",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 870,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "d80f776269e502c6",
+        "type": "debug",
+        "z": "52296dbb67ede9ca",
+        "d": true,
+        "name": "DEBUG OPC response Outside temp",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 810,
+        "y": 1420,
+        "wires": []
+    },
+    {
+        "id": "e99b242a0fffb8f1",
+        "type": "debug",
+        "z": "52296dbb67ede9ca",
+        "name": "OPC Heater status",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 870,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "742301e225dfc392",
+        "type": "debug",
+        "z": "52296dbb67ede9ca",
+        "name": "OPC Ventilator Status",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 880,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "cf9936da743b21c7",
+        "type": "debug",
+        "z": "52296dbb67ede9ca",
+        "name": "OPC Door status",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 870,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "1bfa836282e219ae",
+        "type": "debug",
+        "z": "52296dbb67ede9ca",
+        "d": true,
+        "name": "OpenWeatherMap",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 870,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "cd0b357f31711318",
+        "type": "function",
+        "z": "52296dbb67ede9ca",
+        "d": true,
+        "name": "Calculate Setpoint & Hysteresis",
+        "func": "// current time\nvar now = new Date();\nlet currentTime = now.getTime();\ncurrentTime = Math.round(currentTime/1000);\n\nvar h=now.getHours();\nvar m=now.getMinutes();\nvar tijd=h.toString()+':'+m.toString();\n\nvar current_mins = (h*60)+m;\n\n// sunrise\nvar d_sunrise = new Date(msg.payload.sunrise*1000);\nvar h_sunrise = d_sunrise.getHours();\nvar m_sunrise = d_sunrise.getMinutes();\nvar sunrise = h_sunrise.toString()+':'+m_sunrise.toString()\n\nvar sunrise_mins = (h_sunrise*60)+m_sunrise;\n\n// sunset\nvar d_sunset = new Date(msg.payload.sunset*1000);\nvar h_sunset = d_sunset.getHours();\nvar m_sunset = d_sunset.getMinutes();\nvar sunset = h_sunset.toString() + ':' + m_sunset.toString()\n\nvar sunset_mins = (h_sunset * 60) + m_sunset;\n\nvar t1 = sunrise_mins;\nvar t2 = t1+120;\nvar t5 = sunset_mins;\nvar t4 = t5-120;\nvar t3 = t4-120;\nvar t6 = t5-60;\nvar t7 = 23*60;\n\n// clouds\nvar sun=(100-msg.payload.clouds)/100;\n\n// calculate setpoint and hysteresis\nvar setpoint=12;\nvar hysteresis=1;\nif ((current_mins>t1) && (current_mins<t2)) {\n    var rico = 3/120;\n    var setpoint = 12 + rico * (current_mins-t1);\n    hysteresis = 1 + (sun * 2);\n}\nif ((current_mins >= t2) && (current_mins < t3)) {\n    setpoint=15;\n    hysteresis = 2 + (sun * 2);\n}\nif ((current_mins >= t3) && (current_mins < t4)) {\n    setpoint=16;\n    hysteresis = 3 + (sun * 2);\n}\nif ((current_mins >= t4) && (current_mins < t5)) {\n    var rico = - 4 / 120;\n    var setpoint = 16 + rico * (current_mins - t4);\n    hysteresis = 3 + (sun * 2);\n}\n\n//calculate setpoint humidity\nvar humidity = 85;\nif ((current_mins >= t6) && (current_mins < t7)) {\n    humidity=90;\n}\n\nvar newMsg = { payload: [ setpoint, hysteresis, humidity] };\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 910,
+        "y": 220,
+        "wires": [
+            [
+                "ec02054c17a081ee",
+                "dceca0fd7340c054",
+                "b1fb08e749b7c4bf",
+                "aacc7fa36bb25928"
+            ]
+        ]
+    },
+    {
+        "id": "ec02054c17a081ee",
+        "type": "debug",
+        "z": "52296dbb67ede9ca",
+        "name": "MQTT Published data",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1220,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "6cbcbb194cc44722",
+        "type": "openweathermap",
+        "z": "52296dbb67ede9ca",
+        "d": true,
+        "name": "Get current weather data",
+        "wtype": "current",
+        "lon": "3.217815757352526",
+        "lat": "51.19465030356128",
+        "city": "",
+        "country": "",
+        "language": "en",
+        "x": 550,
+        "y": 220,
+        "wires": [
+            [
+                "1bfa836282e219ae",
+                "cd0b357f31711318"
+            ]
+        ]
+    },
+    {
+        "id": "eb44713cb99e4578",
+        "type": "OpcUa-Client",
+        "z": "52296dbb67ede9ca",
+        "endpoint": "490e6192f2405d28",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 10,
+        "timeUnit": "s",
+        "certificate": "n",
+        "localfile": "",
+        "localkeyfile": "",
+        "securitymode": "None",
+        "securitypolicy": "None",
+        "folderName4PKI": "",
+        "name": "",
+        "x": 640,
+        "y": 340,
+        "wires": [
+            [
+                "81ead3b5149c28b2",
+                "26d96fb31e1de706"
+            ]
+        ]
+    },
+    {
+        "id": "be012789b8981d36",
+        "type": "OpcUa-Client",
+        "z": "52296dbb67ede9ca",
+        "d": true,
+        "endpoint": "490e6192f2405d28",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 10,
+        "timeUnit": "s",
+        "certificate": "n",
+        "localfile": "",
+        "localkeyfile": "",
+        "securitymode": "None",
+        "securitypolicy": "None",
+        "folderName4PKI": "",
+        "name": "",
+        "x": 500,
+        "y": 1360,
+        "wires": [
+            [
+                "a0ec7530108bca63",
+                "d80f776269e502c6"
+            ]
+        ]
+    },
+    {
+        "id": "e33a441b30a69be2",
+        "type": "OpcUa-Client",
+        "z": "52296dbb67ede9ca",
+        "endpoint": "490e6192f2405d28",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 10,
+        "timeUnit": "s",
+        "certificate": "n",
+        "localfile": "",
+        "localkeyfile": "",
+        "securitymode": "None",
+        "securitypolicy": "None",
+        "folderName4PKI": "",
+        "name": "",
+        "x": 640,
+        "y": 620,
+        "wires": [
+            [
+                "7d0fb35a5ce68e5b",
+                "e99b242a0fffb8f1"
+            ]
+        ]
+    },
+    {
+        "id": "b55b85757ee7401c",
+        "type": "OpcUa-Client",
+        "z": "52296dbb67ede9ca",
+        "endpoint": "490e6192f2405d28",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 10,
+        "timeUnit": "s",
+        "certificate": "n",
+        "localfile": "",
+        "localkeyfile": "",
+        "securitymode": "None",
+        "securitypolicy": "None",
+        "folderName4PKI": "",
+        "name": "",
+        "x": 640,
+        "y": 720,
+        "wires": [
+            [
+                "52cbd542fd1dfb46",
+                "742301e225dfc392"
+            ]
+        ]
+    },
+    {
+        "id": "5154b735d68bfa06",
+        "type": "OpcUa-Client",
+        "z": "52296dbb67ede9ca",
+        "endpoint": "490e6192f2405d28",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 10,
+        "timeUnit": "s",
+        "certificate": "n",
+        "localfile": "",
+        "localkeyfile": "",
+        "securitymode": "None",
+        "securitypolicy": "None",
+        "folderName4PKI": "",
+        "name": "",
+        "x": 640,
+        "y": 820,
+        "wires": [
+            [
+                "fcc00cd770eee130",
+                "cf9936da743b21c7"
+            ]
+        ]
+    },
+    {
+        "id": "b1fb08e749b7c4bf",
+        "type": "ui_text",
+        "z": "52296dbb67ede9ca",
+        "d": true,
+        "group": "d60ebe4008f79854",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "name": "Setpoint Inside Temperature",
+        "label": "Setpoint Inside Temperature",
+        "format": "{{msg.payload[0]}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1240,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "aacc7fa36bb25928",
+        "type": "ui_text",
+        "z": "52296dbb67ede9ca",
+        "d": true,
+        "group": "d60ebe4008f79854",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "name": "Hysteresis Inside Temperature",
+        "label": "Hysteresis Inside Temperature",
+        "format": "{{msg.payload[1]}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1250,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "5361d4b3e290bc73",
+        "type": "function",
+        "z": "52296dbb67ede9ca",
+        "name": "Simulate calculation setpoint and hysteresis",
+        "func": "var setpoint = Math.floor(4*Math.random())+12;\nvar hysteresis = Math.floor(4 * Math.random())+1;\nvar humi = Math.floor(5 * Math.random()) + 85;\n\n\n\nvar newMsg = { payload: [ setpoint, hysteresis, humi] };\n\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 750,
+        "y": 120,
+        "wires": [
+            [
+                "b1fb08e749b7c4bf",
+                "aacc7fa36bb25928",
+                "ec02054c17a081ee",
+                "dceca0fd7340c054",
+                "4bf9e2daa62502a5",
+                "fa847bf66e17e6dd",
+                "8d57dd3c95f7d7ce"
+            ]
+        ]
+    },
+    {
+        "id": "4bf9e2daa62502a5",
+        "type": "ui_text",
+        "z": "52296dbb67ede9ca",
+        "d": true,
+        "group": "d60ebe4008f79854",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "name": "Setpoint Humidity",
+        "label": "Setpoint Humidity",
+        "format": "{{msg.payload[2]}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1210,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "8be5b3b03fc8764e",
+        "type": "inject",
+        "z": "52296dbb67ede9ca",
+        "name": "inject every 10 sec",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 200,
+        "y": 480,
+        "wires": [
+            [
+                "4f05703f52dd4b02"
+            ]
+        ]
+    },
+    {
+        "id": "717878f737c9159e",
+        "type": "function",
+        "z": "52296dbb67ede9ca",
+        "name": "Get inside humidity",
+        "func": "var humi = Math.round(msg.payload);\nvar msg = {payload: humi}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 870,
+        "y": 480,
+        "wires": [
+            [
+                "d9106deecea092e0",
+                "8786655759f24c20",
+                "f629de8421ab39f9"
+            ]
+        ]
+    },
+    {
+        "id": "f629de8421ab39f9",
+        "type": "ui_gauge",
+        "z": "52296dbb67ede9ca",
+        "name": "Inside humidity",
+        "group": "3204e83b013940e4",
+        "order": 5,
+        "width": "6",
+        "height": "6",
+        "gtype": "gage",
+        "title": "{{msg.label}}",
+        "label": " °C",
+        "format": "{{value}}",
+        "min": "0",
+        "max": "100",
+        "colors": [
+            "#ff0000",
+            "#00ff00",
+            "#ff0000"
+        ],
+        "seg1": "60",
+        "seg2": "90",
+        "className": "",
+        "x": 1200,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "d9106deecea092e0",
+        "type": "debug",
+        "z": "52296dbb67ede9ca",
+        "name": "Inside humidity",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1200,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "fd3df735f1d1c1a0",
+        "type": "debug",
+        "z": "52296dbb67ede9ca",
+        "name": "OPC Inside humidity",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 880,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "b73885458a3802a7",
+        "type": "OpcUa-Client",
+        "z": "52296dbb67ede9ca",
+        "endpoint": "490e6192f2405d28",
+        "action": "read",
+        "deadbandtype": "a",
+        "deadbandvalue": 1,
+        "time": 10,
+        "timeUnit": "s",
+        "certificate": "n",
+        "localfile": "",
+        "localkeyfile": "",
+        "securitymode": "None",
+        "securitypolicy": "None",
+        "folderName4PKI": "",
+        "name": "",
+        "x": 640,
+        "y": 480,
+        "wires": [
+            [
+                "717878f737c9159e",
+                "fd3df735f1d1c1a0"
+            ]
+        ]
+    },
+    {
+        "id": "8786655759f24c20",
+        "type": "ui_chart",
+        "z": "52296dbb67ede9ca",
+        "name": "",
+        "group": "3204e83b013940e4",
+        "order": 6,
+        "width": "16",
+        "height": "6",
+        "label": "History inside humidity",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": true,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": "30",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1220,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fa847bf66e17e6dd",
+        "type": "function",
+        "z": "52296dbb67ede9ca",
+        "name": "Calculate sections for gauge",
+        "func": "var limitlo = msg.payload[0];\nvar limithi = msg.payload[0]+msg.payload[1];\nmsg = { label: \"Inside Temperature [\" + limitlo + \" - \" + limithi + \"]\", ui_control: {seg1:limitlo,seg2:limithi}};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 900,
+        "y": 300,
+        "wires": [
+            [
+                "d2fb41f71d23e63f"
+            ]
+        ]
+    },
+    {
+        "id": "8d57dd3c95f7d7ce",
+        "type": "function",
+        "z": "52296dbb67ede9ca",
+        "name": "Calculate sections for gauge",
+        "func": "var limitlo = 60;\nvar limithi = msg.payload[2];\nmsg = { label: \"Inside Humidity [\" + limitlo + \" - \" + limithi + \"]\", ui_control: { seg1: limitlo, seg2: limithi } };\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 900,
+        "y": 440,
+        "wires": [
+            [
+                "f629de8421ab39f9"
+            ]
+        ]
+    },
+    {
+        "id": "bda2df4672f73c7a",
+        "type": "OpcUa-Item",
+        "z": "52296dbb67ede9ca",
+        "item": "ns=4;i=77",
+        "datatype": "Int16",
+        "value": "",
+        "name": "Read inside temp",
+        "x": 430,
+        "y": 340,
+        "wires": [
+            [
+                "eb44713cb99e4578"
+            ]
+        ]
+    },
+    {
+        "id": "4f05703f52dd4b02",
+        "type": "OpcUa-Item",
+        "z": "52296dbb67ede9ca",
+        "item": "ns=4;i=71",
+        "datatype": "Float",
+        "value": "",
+        "name": "Read humidity",
+        "x": 420,
+        "y": 480,
+        "wires": [
+            [
+                "b73885458a3802a7"
+            ]
+        ]
+    },
+    {
+        "id": "167092defddcba25",
+        "type": "inject",
+        "z": "52296dbb67ede9ca",
+        "name": "inject every 10 sec",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 200,
+        "y": 820,
+        "wires": [
+            [
+                "c11631e30b62124a"
+            ]
+        ]
+    },
+    {
+        "id": "c11631e30b62124a",
+        "type": "OpcUa-Item",
+        "z": "52296dbb67ede9ca",
+        "item": "ns=4;i=52",
+        "datatype": "Boolean",
+        "value": "",
+        "name": "Read door status",
+        "x": 430,
+        "y": 820,
+        "wires": [
+            [
+                "5154b735d68bfa06"
+            ]
+        ]
+    },
+    {
+        "id": "3358f3623e82254f",
+        "type": "inject",
+        "z": "52296dbb67ede9ca",
+        "name": "inject every 10 sec",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 200,
+        "y": 720,
+        "wires": [
+            [
+                "a84884e136ef6c31"
+            ]
+        ]
+    },
+    {
+        "id": "a84884e136ef6c31",
+        "type": "OpcUa-Item",
+        "z": "52296dbb67ede9ca",
+        "item": "ns=4;i=48",
+        "datatype": "Boolean",
+        "value": "",
+        "name": "Read ventilator status",
+        "x": 440,
+        "y": 720,
+        "wires": [
+            [
+                "b55b85757ee7401c"
+            ]
+        ]
+    },
+    {
+        "id": "d03174e845aec0f7",
+        "type": "inject",
+        "z": "52296dbb67ede9ca",
+        "name": "inject every 10 sec",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 200,
+        "y": 620,
+        "wires": [
+            [
+                "59c706a74079c649"
+            ]
+        ]
+    },
+    {
+        "id": "59c706a74079c649",
+        "type": "OpcUa-Item",
+        "z": "52296dbb67ede9ca",
+        "item": "ns=4;i=56",
+        "datatype": "Boolean",
+        "value": "",
+        "name": "Read heater status",
+        "x": 430,
+        "y": 620,
+        "wires": [
+            [
+                "e33a441b30a69be2"
+            ]
+        ]
+    },
+    {
+        "id": "31757a5912ef740b",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "172.16.12.42",
+        "port": "8883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "compatmode": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "3204e83b013940e4",
+        "type": "ui_group",
+        "name": "Sensors",
+        "tab": "89386b07239340e4",
+        "order": 1,
+        "disp": true,
+        "width": "22",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "542bd1430b7ad773",
+        "type": "ui_group",
+        "name": "Actuators",
+        "tab": "89386b07239340e4",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "490e6192f2405d28",
+        "type": "OpcUa-Endpoint",
+        "endpoint": "opc.tcp://172.16.12.41:4840",
+        "secpol": "None",
+        "secmode": "None",
+        "none": true,
+        "login": false,
+        "usercert": false,
+        "usercertificate": "",
+        "userprivatekey": ""
+    },
+    {
+        "id": "d60ebe4008f79854",
+        "type": "ui_group",
+        "name": "Settings",
+        "tab": "89386b07239340e4",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "89386b07239340e4",
+        "type": "ui_tab",
+        "name": "SIN Serre",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
